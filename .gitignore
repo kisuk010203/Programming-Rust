@@ -1,0 +1,2 @@
+# Ignore all files under the 'target' directory
+**/target/
