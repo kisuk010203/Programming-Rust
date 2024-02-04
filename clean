@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Find all directories named "target" under the current directory.
-find . -type d -name "target" | while read dir; do
+# Find all directories named "src" under the current directory. This means that the directory is a Rust package.
+find . -type d -name "src" | while read dir; do
   # Get the parent directory of the "target" directory.
   parent_dir=$(dirname "$dir")
   
