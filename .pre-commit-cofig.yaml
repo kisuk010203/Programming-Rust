@@ -1,0 +1,9 @@
+repos:
+- repo: local
+  hooks:
+  - id: cargo-clean
+    name: Run cargo clean
+    entry: cargo clean
+    language: system
+    types: [commit]
+    args: [--all]
