@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Find all directories named "target" under the current directory.
+find . -type d -name "target" | while read dir; do
+  # Get the parent directory of the "target" directory.
+  parent_dir=$(dirname "$dir")
+  
+  # Run "cargo clean" in the parent directory.
+  echo "Running 'cargo clean' in $parent_dir"
+  (cd "$parent_dir" && cargo clean && cargo fmt)
+done
