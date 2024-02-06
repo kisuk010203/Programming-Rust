@@ -4,10 +4,11 @@ extern crate mime;
 extern crate router;
 extern crate urlencoded;
 
+use std::str::FromStr;
+
 use iron::prelude::*;
 use iron::status;
 use router::Router;
-use std::str::FromStr;
 use urlencoded::UrlEncodedBody;
 
 fn main() {
