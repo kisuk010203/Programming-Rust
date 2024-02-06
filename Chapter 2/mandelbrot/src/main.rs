@@ -1,12 +1,14 @@
 extern crate crossbeam;
 extern crate image;
 extern crate num;
-use image::png::PNGEncoder;
-use image::ColorType;
-use num::Complex;
+
 use std::fs::File;
 use std::io::Write;
 use std::str::FromStr;
+
+use image::png::PNGEncoder;
+use image::ColorType;
+use num::Complex;
 
 /// Parse the string `s` as a coordinate pair, like `"400X600"` or `"1.0,0.5"`.
 /// Specifically, `s` should have the form <left><sep><right>, where <sep> is the character given by the `separator` argument,
