@@ -3,11 +3,11 @@ extern crate image;
 extern crate num;
 
 use std::fs::File;
-use std::io::Write;
-use std::str::FromStr;
 
 use image::png::PNGEncoder;
 use image::ColorType;
+use std::io::Write;
+use std::str::FromStr;
 use num::Complex;
 
 /// Parse the string `s` as a coordinate pair, like `"400X600"` or `"1.0,0.5"`.
