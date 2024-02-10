@@ -21,8 +21,8 @@ fn test_copy_type() {
     assert_eq!(num1, 36);
 }
 #[test]
-/// For any type `T`, `Rc<T>` is a pointer to a heap-allocated `T` that is reference-counted. Cloning `Rc<T>` simply 
-/// increments the reference count, and creates another point to it. 
+/// For any type `T`, `Rc<T>` is a pointer to a heap-allocated `T` that is reference-counted. Cloning `Rc<T>` simply
+/// increments the reference count, and creates another point to it.
 fn test_rc() {
     let rc = Rc::new("hello".to_string());
     let rc1 = rc.clone();
