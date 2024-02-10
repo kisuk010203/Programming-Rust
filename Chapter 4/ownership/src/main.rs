@@ -4,9 +4,18 @@ struct Person {
 }
 fn make_composers_and_print() {
     let mut composers = Vec::new(); // owns a vector, vector owns its elements
-    composers.push(Person{name: "Palestrina".to_string(), birth: 1525}); // each Person structure owns its fields, string owns its text
-    composers.push(Person{name: "Dowland".to_string(), birth: 1563});
-    composers.push(Person{name: "Lully".to_string(), birth: 1632});
+    composers.push(Person {
+        name: "Palestrina".to_string(),
+        birth: 1525,
+    }); // each Person structure owns its fields, string owns its text
+    composers.push(Person {
+        name: "Dowland".to_string(),
+        birth: 1563,
+    });
+    composers.push(Person {
+        name: "Lully".to_string(),
+        birth: 1632,
+    });
 
     let first_name = &composers[0].name; // error: cannot move out will occur without `&`, which means that it merely borrows, not move.
     assert_eq!(first_name, "Palestrina");
@@ -18,7 +27,7 @@ fn make_composers_and_print() {
 fn print_padovan() {
     let mut padovan = vec![1, 1, 1]; // allocated on the heap
     for i in 3..10 {
-        let next = padovan[i-3] + padovan[i-2];
+        let next = padovan[i - 3] + padovan[i - 2];
         padovan.push(next);
     }
     println!("P(1..10) = {:?}", padovan); // padovan is deallocated here
@@ -28,8 +37,8 @@ fn main() {
     make_composers_and_print();
 }
 #[test]
-/// `Box<T>` is a pointer to a heap-allocated T stored on the heap. Calling `Box::new(v)` 
-/// allocates some heap space, moves the value v into it, and returns a `Box` pointing th the heap space. 
+/// `Box<T>` is a pointer to a heap-allocated T stored on the heap. Calling `Box::new(v)`
+/// allocates some heap space, moves the value v into it, and returns a `Box` pointing th the heap space.
 /// Whenever `Box` is dropped, the space is freed as well.
 fn box_test() {
     let point = Box::new((0.625, 0.5)); // point allocated here
@@ -45,18 +54,18 @@ fn box_test() {
 /// ```
 /// In the above python code, when we alter a, b and c are also altered. This is not the case in Rust.
 /// Python makes assignment cheap, and the expense of requiring reference counting or garbage collection to manage the memory.
-/// 
+///
 /// ```
 /// vector<int> a = {1, 2, 3};
 /// vector<int> b = a;
 /// vector<int> c = a;
 /// ```
 /// In the above c++ code, when we alter a, b and c is not altered. However, even this is not the case in Rust.
-/// C++ keeps all the ownership of memory clear, at the expense of making assignment carry out a deep copy. expensive :( 
+/// C++ keeps all the ownership of memory clear, at the expense of making assignment carry out a deep copy. expensive :(
 fn test_move() {
     let s = vec![1, 2, 3];
     let t = s; // this moves the value of s into t, which makes s uninitialized.
-    // let u = s; // error: value used here after move
+               // let u = s; // error: value used here after move
     let u = t.clone();
     assert_eq!(t, vec![1, 2, 3]);
     assert_eq!(u, vec![1, 2, 3]);
@@ -69,10 +78,10 @@ fn move_assign() {
     assert_eq!(t, "HELLO");
     assert_eq!(s, "WORLD");
 }
-/* So why is this `move` good? 
-    1. It always apply to the `value proper`, not the heap storage they own. Hence, it is cheap.
-    2. This is compiler friendly, hence the machine code stores the value directly where it belong.
- */
+/* So why is this `move` good?
+   1. It always apply to the `value proper`, not the heap storage they own. Hence, it is cheap.
+   2. This is compiler friendly, hence the machine code stores the value directly where it belong.
+*/
 #[test]
 fn pop_element() {
     let mut v = Vec::new();
@@ -95,12 +104,12 @@ fn pop_element() {
     assert_eq!(third, "103");
     assert_eq!(v, vec!["101", "104", "substitute"]);
 
-    for mut i in v { // This moves the vector out of v, leaving v uninitialized.
+    for mut i in v {
+        // This moves the vector out of v, leaving v uninitialized.
         i += "2";
         println!("{}", i);
     }
     // println!("{:?}", v); // error: value used here after move
-
 
     // let third = v[2]; // cannot move out of index of Vec<String>, this is a move because value has `String` type.
     // let fifth = v[4];
